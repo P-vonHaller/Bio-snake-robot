@@ -24,7 +24,7 @@ start = timeit.default_timer()
 IMG_MEAN = np.array((104.00698793,116.66876762,122.67891434), dtype=np.float32)
 
 BATCH_SIZE = 10
-DATA_DIRECTORY = '../../data/VOCdevkit/voc12'
+DATA_DIRECTORY = '../../VOCdevkit/VOC12'
 DATA_LIST_PATH = './dataset/list/train_aug.txt'
 IGNORE_LABEL = 255
 INPUT_SIZE = '321,321'
