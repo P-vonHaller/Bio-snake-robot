@@ -1,6 +1,6 @@
 # Use an official Python runtime as a parent image
 # Maybe correct?
-FROM 1.0.1-cuda10.0-cudnn7-devel
+FROM pytorch:1.0.1-cuda10.0-cudnn7-devel
 
 # Set the working directory to /app
 WORKDIR /app
