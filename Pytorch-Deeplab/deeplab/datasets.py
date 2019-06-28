@@ -26,8 +26,8 @@ class VOCDataSet(data.Dataset):
         self.files = []
         # for split in ["train", "trainval", "val"]:
         for name in self.img_ids:
-            img_file = osp.join(self.root, "JPEGImages%s.jpg" % name)
-            label_file = osp.join(self.root, "SegmentationClassAug%s.png" % name)
+            img_file = osp.join(self.root, "JPEGImages/%s.jpg" % name)
+            label_file = osp.join(self.root, "SegmentationClassAug/%s.png" % name)
             self.files.append({
                 "img": img_file,
                 "label": label_file,
