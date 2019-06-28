@@ -207,7 +207,7 @@ def main():
     for i_iter, batch in enumerate(trainloader):
         images, labels, _, _ = batch
         print("Something")
-		images = Variable(images).cuda()
+	    images = Variable(images).cuda()
 
         optimizer.zero_grad()
         adjust_learning_rate(optimizer, i_iter)
