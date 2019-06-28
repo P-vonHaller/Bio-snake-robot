@@ -194,7 +194,7 @@ def main():
 
     trainloader = data.DataLoader(VOCDataSet(args.data_dir, args.data_list, max_iters=args.num_steps*args.batch_size, crop_size=input_size, 
                     scale=args.random_scale, mirror=args.random_mirror, mean=IMG_MEAN), 
-                    batch_size=args.batch_size, shuffle=True, num_workers=5, pin_memory=True)
+                    batch_size=args.batch_size, shuffle=True, num_workers=0, pin_memory=True)
 
     optimizer = optim.SGD([{'params': get_1x_lr_params_NOscale(model), 'lr': args.learning_rate }, 
                 {'params': get_10x_lr_params(model), 'lr': 10*args.learning_rate}], 
