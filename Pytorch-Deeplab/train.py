@@ -34,7 +34,7 @@ NUM_CLASSES = 21
 NUM_STEPS = 20000
 POWER = 0.9
 RANDOM_SEED = 1234
-RESTORE_FROM = '../../Pytorch-Deeplab-Model/MS_DeepLab_resnet_pretrained_COCO_init.pth'
+RESTORE_FROM = '/root/Pytorch-Deeplab-Model/MS_DeepLab_resnet_pretrained_COCO_init.pth'
 SAVE_NUM_IMAGES = 2
 SAVE_PRED_EVERY = 1000
 SNAPSHOT_DIR = './snapshots/'
@@ -206,7 +206,8 @@ def main():
 
     for i_iter, batch in enumerate(trainloader):
         images, labels, _, _ = batch
-        images = Variable(images).cuda()
+        print("Something")
+		images = Variable(images).cuda()
 
         optimizer.zero_grad()
         adjust_learning_rate(optimizer, i_iter)
