@@ -24,7 +24,7 @@ start = timeit.default_timer()
 IMG_MEAN = np.array((104.00698793,116.66876762,122.67891434), dtype=np.float32)
 
 BATCH_SIZE = 10
-DATA_DIRECTORY = '../../VOCdevkit/VOC12'
+DATA_DIRECTORY = '~/VOCdevkit/VOC2012/'
 DATA_LIST_PATH = './dataset/list/train_aug.txt'
 IGNORE_LABEL = 255
 INPUT_SIZE = '321,321'
@@ -34,7 +34,7 @@ NUM_CLASSES = 21
 NUM_STEPS = 20000
 POWER = 0.9
 RANDOM_SEED = 1234
-RESTORE_FROM = '../../Pytorch-Deeplab-Model/MS_DeepLab_resnet_pretrained_COCO_init.pth'
+RESTORE_FROM = '~/Pytorch-Deeplab-Model/MS_DeepLab_resnet_pretrained_COCO_init.pth'
 SAVE_NUM_IMAGES = 2
 SAVE_PRED_EVERY = 1000
 SNAPSHOT_DIR = './snapshots/'
