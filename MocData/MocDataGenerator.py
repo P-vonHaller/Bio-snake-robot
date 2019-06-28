@@ -46,9 +46,9 @@ class VOCDataSet(data.Dataset):
         counter = 0 #for testing
         for name in self.img_ids:
             counter += 1
-            img_file = osp.join(self.root, "JPEGImages\\%s.jpg" % name) #change / and \ according to os!!!
+            img_file = osp.join(self.root, "JPEGImages/%s.jpg" % name) #change / and \ according to os!!!
             print(img_file)
-            label_file = osp.join(self.root, "SegmentationClassAug\\%s.png" % name)#change / and \ according to os!!!
+            label_file = osp.join(self.root, "SegmentationClassAug/%s.png" % name)#change / and \ according to os!!!
             print(img_file)
             self.files.append({
                 "img": img_file,
