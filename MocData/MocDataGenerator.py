@@ -112,7 +112,7 @@ class VOCDataSet(data.Dataset):
 # In[112]:
 
 
-DATA_DIRECTORY = 'root/VOCdevkit/VOC2012/'
+DATA_DIRECTORY = '/root/VOCdevkit/VOC2012/'
 DATA_LIST_PATH = 'train_aug.txt'
 
 IMG_MEAN = np.array((104.00698793,116.66876762,122.67891434), dtype=np.float32) 
