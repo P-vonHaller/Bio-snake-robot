@@ -1,6 +1,9 @@
 import time
-f = open('Background.txt', 'w')
+import sys
 for i in range(1000):
-	print('%d ht Time...' %i)
-	f.write('%d ht Time...\n' %i)
-	time.sleep(3)
+    print('%d ht Time...' %i)
+    sys.stdout.flush()
+    f = open('Background.txt', 'a')
+    f.write('Something Something %d ht Time...\n' %i)
+    f.close()
+    time.sleep(3)
