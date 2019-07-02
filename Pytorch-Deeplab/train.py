@@ -217,18 +217,22 @@ def main():
 
         
         print('iter = ', i_iter, 'of', args.num_steps,'completed, loss = ', loss.data.cpu().numpy())
+        sys.stdout.flush()
 
         if i_iter >= args.num_steps-1:
             print('save model ...')
+            sys.stdout.flush()
             torch.save(model.state_dict(),osp.join(args.snapshot_dir, 'VOC12_scenes_'+str(args.num_steps)+'.pth'))
             break
 
         if i_iter % args.save_pred_every == 0 and i_iter!=0:
             print('taking snapshot ...')
+            sys.stdout.flush()
             torch.save(model.state_dict(),osp.join(args.snapshot_dir, 'VOC12_scenes_'+str(i_iter)+'.pth'))     
 
     end = timeit.default_timer()
     print(end-start,'seconds')
+    sys.stdout.flush()
 
 if __name__ == '__main__':
     main()
