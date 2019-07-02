@@ -50,7 +50,7 @@ class ConfusionMatrix(object):
     def jaccard(self):
         jaccard = 0.0
         jaccard_perclass = []
-        for i in xrange(self.nclass):
+        for i in range(self.nclass):
             jaccard_perclass.append(self.M[i, i] / (np.sum(self.M[i, :]) + np.sum(self.M[:, i]) - self.M[i, i]))
 
         return np.sum(jaccard_perclass)/len(jaccard_perclass), jaccard_perclass, self.M
