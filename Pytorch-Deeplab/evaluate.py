@@ -75,7 +75,6 @@ def show_all(gt, pred):
     from matplotlib import colors
     from mpl_toolkits.axes_grid1 import make_axes_locatable
 
-    fig1 = plt.figure()
     fig, axes = plt.subplots(1, 2)
     ax1, ax2 = axes
 
@@ -99,7 +98,7 @@ def show_all(gt, pred):
     ax2.set_title('pred')
     ax2.imshow(pred, cmap=cmap, norm=norm)
 
-    fig1.savefig('1.png')
+    fig.savefig('1.png')
 
 def main():
     """Create the model and start the evaluation process."""
@@ -133,10 +132,10 @@ def main():
 
         output = output[:,:size[0],:size[1]]
         gt = np.asarray(label[0].numpy()[:size[0],:size[1]], dtype=np.int)
-        
+        print(gt)
         output = output.transpose(1,2,0)
         output = np.asarray(np.argmax(output, axis=2), dtype=np.int)
-
+        print(output)
         show_all(gt, output)
         data_list.append([gt.flatten(), output.flatten()])
 
