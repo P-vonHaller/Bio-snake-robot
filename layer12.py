@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[2]:
 
 
 import torch
@@ -16,7 +16,7 @@ from itertools import repeat
 unfold = F.unfold
 
 
-# In[2]:
+# In[3]:
 
 
 def _ntuple(n):
@@ -32,7 +32,7 @@ _triple = _ntuple(3)
 _quadruple = _ntuple(4)
 
 
-# In[3]:
+# In[4]:
 
 
 def conv2d_local(input, weight, bias=None, padding=0, stride=1, dilation=1):
@@ -57,7 +57,7 @@ def conv2d_local(input, weight, bias=None, padding=0, stride=1, dilation=1):
     return out
 
 
-# In[4]:
+# In[5]:
 
 
 class Conv2dLocal(Module):
@@ -117,7 +117,7 @@ class Conv2dLocal(Module):
             padding=self.padding, dilation=self.dilation)
 
 
-# In[5]:
+# In[6]:
 
 
 class Net(nn.Module):
@@ -126,27 +126,35 @@ class Net(nn.Module):
         super(Net, self).__init__()
         
         #in_height, in_width, in_channels, out_channels, kernel_size, stride=1, padding=0, bias=True, dilation=1
-        self.conv1 = Conv2dLocal(5, 5, 21, 21, 3, 1, 1, 0, 1)
+        self.conv1 = Conv2dLocal(512, 512, 21, 21, 50, 1, 1, 0, 1)
+        
+        #in-features, out-features
+        self.linear = nn.Linear (512, 2205)
 
     def forward(self, x):
-        x = F.relu(self.conv1(x))
+        x = self.conv1(x)
+        x = self.linear(x)
         return x
 
-net = Net()
-print(net)
-print(net.conv1.weight.data.size())
+    def num_flat_features(self, x):
+        size = x.size()[1:]  # all dimensions except the batch dimension
+        num_features = 1
+        for s in size:
+            num_features *= s
+        return num_features
 
 
-# In[6]:
+# In[12]:
 
-def loadImages()
-    test = (torch.randint(0, 10, (3, 5, 5))) # color, height, width
-    print(test)
+
+def loadImages():
+    test = (torch.randint(0, 10, (3, 512, 512))) # color, height, width
+    return test
     #print(test[1][0][0])
     #print(len(test))
 
 
-# In[18]:
+# In[13]:
 
 
 def calcDistance(color1, color2, color3, compColor1, compColor2, compColor3, imageX, imageY, x, y, middle):
@@ -158,7 +166,7 @@ def calcDistance(color1, color2, color3, compColor1, compColor2, compColor3, ima
     return distance
 
 
-# In[19]:
+# In[14]:
 
 
 def initializeFilters(image):
@@ -185,21 +193,21 @@ def initializeFilters(image):
     return filters
 
 
-# In[20]:
+# In[ ]:
 
 
-filters = initializeFilters(test)
+filters = initializeFilters(loadImages())
 print(filters.size())
 #print(filters.view(25, 3, 3).size())
 print(filters)
 filters.unsqueeze_(-3)
 filters.unsqueeze_(-3)
-filters = filters.expand(5, 5, 21, 21, 3, 3)
+filters = filters.expand(512, 512, 21, 21, 50, 50)
 print(filters.size())
 #print(filters)
 
 
-# In[10]:
+# In[ ]:
 
 
 params = list(net.conv1.parameters())
@@ -208,11 +216,11 @@ params = filters
 print(params)
 
 
-# In[21]:
+# In[ ]:
 
 
-input = torch.ones(21, 21, 5, 5)
-print(input[0][0][0][0])
+input = torch.ones(21, 21, 512, 512)
+#print(input[0][0][0][0])
 out = net(input)
 #print(input)
 print(out.size())
@@ -220,14 +228,63 @@ print(out.size())
 print(out)
 
 
+# In[ ]:
+
+
+img = loadimages()
+output = loadoutput11()
+filters = initializeFilters(img, output)
+feedFiltersInLayer(filters)
+
 
 def main():
-    #loadimages
-    #loadoutput11
-    #createfilters
-    #applynetwork
-    #saveoutput12
-    print("test")
+    """Create the model and start the training."""
+    
+    os.environ["CUDA_VISIBLE_DEVICES"]=str(args.gpu)
+    h, w = map(int, args.input_size.split(','))
+    input_size = (h, w)
 
-if __name__ == "__main__":
-   main()
+    cudnn.enabled = True
+
+    # Create network.
+    model = Net()
+
+    model.cuda()
+    
+    cudnn.benchmark = True
+
+    if not os.path.exists(args.snapshot_dir):
+        os.makedirs(args.snapshot_dir)
+
+
+    trainloader = data.DataLoader(VOCDataSet(args.data_dir, args.data_list, max_iters=args.num_steps*args.batch_size, crop_size=input_size, 
+                    scale=args.random_scale, mirror=args.random_mirror, mean=IMG_MEAN), 
+                    batch_size=args.batch_size, shuffle=True, num_workers=0, pin_memory=True)
+
+
+    for i_iter, batch in enumerate(trainloader):
+        images, labels, _, _ = batch
+        images = Variable(images).cuda()
+
+        
+        pred = model(images)
+
+
+        if i_iter >= args.num_steps-1:
+            print('save model ...')
+            sys.stdout.flush()
+            torch.save(model.state_dict(),osp.join(args.snapshot_dir, 'VOC12_scenes_'+str(args.num_steps)+'.pth'))
+            break
+
+        if i_iter % args.save_pred_every == 0 and i_iter!=0:
+            print('taking snapshot ...')
+            sys.stdout.flush()
+            torch.save(model.state_dict(),osp.join(args.snapshot_dir, 'VOC12_scenes_'+str(i_iter)+'.pth'))     
+
+    end = timeit.default_timer()
+    print(end-start,'seconds')
+    sys.stdout.flush()
+
+if __name__ == '__main__':
+    main()
+
