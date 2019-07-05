@@ -41,9 +41,9 @@ model = Res_Deeplab(num_classes=21)
 pathToTrainedModel = '/root/Bio-snake-robot/Pytorch-Deeplab/FirstTrain10000StepsDefaultParametersBatch6/VOC12_scenes_10000.pth'
 
 # not the following, as we work on CPU (has to be reloaded! on CPU)
-saved_state_dict = torch.load(pathToTrainedModel)
+#saved_state_dict = torch.load(pathToTrainedModel)
 
-#saved_state_dict = torch.load(pathToTrainedModel, map_location=lambda storage, loc: storage)
+saved_state_dict = torch.load(pathToTrainedModel, map_location=lambda storage, loc: storage)
 
 model.load_state_dict(saved_state_dict)
 
@@ -51,12 +51,13 @@ model.eval()
 
 
 
-gpu0 = 0
-os.environ["CUDA_VISIBLE_DEVICES"]=str(gpu0)
-cudnn.enabled = True
+#gpu0 = 0
+#os.environ["CUDA_VISIBLE_DEVICES"]=str(gpu0)
+#cudnn.enabled = True
 
 #if we use cpu
-model.cuda()
+#model.cuda()
+
 trainloader = data.DataLoader(VOCDataSet(DATA_DIRECTORY, DATA_LIST_PATH, max_iters=10, crop_size=input_size, 
                     scale=False, mirror=False, mean=IMG_MEAN), 
                     batch_size=6, shuffle=False, num_workers=0, pin_memory=True)
@@ -64,7 +65,7 @@ trainloader = data.DataLoader(VOCDataSet(DATA_DIRECTORY, DATA_LIST_PATH, max_ite
 interp = nn.Upsample(size=input_size, mode='bilinear', align_corners=True)
 for i_iter, batch in enumerate(trainloader):
     images, labels, _, _ = batch
-    images = Variable(images).cuda() #gets and saves a gpu output, for cpu see evaluate.py
+    images = Variable(images)#.cuda() #gets and saves a gpu output, for cpu see evaluate.py
     
     torch.save(images, '/root/VOC12_After_Deeplab/TrainBatch6Tensors/images'+ str(i_iter) + '.pth')
     torch.save(labels, '/root/VOC12_After_Deeplab/TrainBatch6Tensors/labels'+ str(i_iter) + '.pth')
