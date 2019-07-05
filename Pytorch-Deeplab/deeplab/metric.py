@@ -2,7 +2,7 @@ import os, sys
 import numpy as np
 
 from multiprocessing import Pool 
-import copy_reg
+import copyreg
 import types
 def _pickle_method(m):
     if m.im_self is None:
@@ -10,7 +10,7 @@ def _pickle_method(m):
     else:
         return getattr, (m.im_self, m.im_func.func_name)
 
-copy_reg.pickle(types.MethodType, _pickle_method)
+copyreg.pickle(types.MethodType, _pickle_method)
 
 class ConfusionMatrix(object):
 
@@ -50,7 +50,7 @@ class ConfusionMatrix(object):
     def jaccard(self):
         jaccard = 0.0
         jaccard_perclass = []
-        for i in xrange(self.nclass):
+        for i in range(self.nclass):
             jaccard_perclass.append(self.M[i, i] / (np.sum(self.M[i, :]) + np.sum(self.M[:, i]) - self.M[i, i]))
 
         return np.sum(jaccard_perclass)/len(jaccard_perclass), jaccard_perclass, self.M
