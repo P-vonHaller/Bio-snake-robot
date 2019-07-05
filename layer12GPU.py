@@ -190,11 +190,11 @@ def initializeFilters(image):
     filters = torch.zeros(imageHeight, imageWidth, filterHeight, filterWidth) #imageY, imageX, y, x
     filters.cuda()
     middle = math.floor(filterHeight/2)
-    for imageY in range(imageHeight):
+    for imageY in range(0, imageHeight, 5):
         print(imageY)
-        for imageX in range(imageWidth):
-            for y in range(filterHeight):
-                for x in range(filterWidth):
+        for imageX in range(0, imageWidth, 5):
+            for y in range(0, filterHeight, 5):
+                for x in range(0, filterWidth, 5):
                     if not ((imageX + (x-middle)) < 0 or (imageX + x) > imageWidth or (imageY + (y-middle)) < 0 or (imageY + y) > imageHeight):
                         filters[imageY][imageX][y][x] = 0#calcDistance(image[0][imageY][imageX], 
                                                           #            image[1][imageY][imageX], 
