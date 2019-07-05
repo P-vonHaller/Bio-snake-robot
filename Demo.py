@@ -34,11 +34,12 @@ start = timeit.default_timer()
 
 
 
-h, w = map(int, INPUT_SIZE.split(','))
-input_size = (h, w)
 
 INPUT_SIZE = '321,321'
 PATH = '/root/Bio-snake-robot/1.jpg'
+
+h, w = map(int, INPUT_SIZE.split(','))
+input_size = (h, w)
 
 image = cv2.imread(PATH, cv2.IMREAD_COLOR)
 image = np.asarray(image, np.float32)
