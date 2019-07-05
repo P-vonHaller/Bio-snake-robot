@@ -132,10 +132,10 @@ def main():
 
         output = output[:,:size[0],:size[1]]
         gt = np.asarray(label[0].numpy()[:size[0],:size[1]], dtype=np.int)
-        print(gt)
+        print(gt.shape)
         output = output.transpose(1,2,0)
         output = np.asarray(np.argmax(output, axis=2), dtype=np.int)
-        print(output)
+        print(output.shape)
         show_all(gt, output)
         data_list.append([gt.flatten(), output.flatten()])
 
