@@ -30,7 +30,7 @@ BATCH_SIZE = 3 # important, cause new!
 DATA_DIRECTORY = '/root/VOCdevkit/VOC2012/'
 DATA_LIST_PATH = '/root/Bio-snake-robot/Pytorch-Deeplab/dataset/list/train_aug.txt'
 NUM_CLASSES = 21
-NUM_STEPS = 10 # adapt to task!!
+NUM_STEPS = 3525 # all images
 INPUT_SIZE = '321,321'
 
 h, w = map(int, INPUT_SIZE.split(','))
@@ -73,6 +73,8 @@ for i_iter, batch in enumerate(trainloader):
 
     pred = interp(model(images))
     torch.save(pred, '/root/VOC12_After_Deeplab/TrainBatch3TensorsGPU/predictions'+ str(i_iter) + '.pth')
+    if i_iter > NUM_STEPS:
+	    break
 
 #i = 0
 #t = torch.load('/root/VOC12_After_Deeplab/TrainBatch3TensorsGPU/labels'+ str(i) + '.pth')
