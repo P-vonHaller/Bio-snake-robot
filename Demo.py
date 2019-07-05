@@ -44,6 +44,8 @@ input_size = (h, w)
 mean=(128, 128, 128)
 
 image = cv2.imread(PATH, cv2.IMREAD_COLOR)
+size = image.shape
+np.array(size)
 image = np.asarray(image, np.float32)
 image -= mean
         
