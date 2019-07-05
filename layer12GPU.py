@@ -184,6 +184,7 @@ def initializeFilters(image):
     filterHeight = 5
     filterWidth = 5
     filters = torch.zeros(imageHeight, imageWidth, filterHeight, filterWidth) #imageY, imageX, y, x
+    filters.cuda()
     middle = math.floor(filterHeight/2)
     for imageY in range(imageHeight):
         print('IM doing something')
