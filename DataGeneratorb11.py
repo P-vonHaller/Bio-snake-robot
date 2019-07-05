@@ -38,7 +38,7 @@ input_size = (h, w)
 
 model = Res_Deeplab(num_classes=21)
 
-pathToTrainedModel = '/root/Pytorch-Deeplab-Model/MS_DeepLab_resnet_pretrained_COCO_init.pth'
+pathToTrainedModel = '/root/Bio-snake-robot/Pytorch-Deeplab/FirstTrain10000StepsDefaultParametersBatch6/VOC12_scenes_10000.pth'
 
 # not the following, as we work on CPU (has to be reloaded! on CPU)
 saved_state_dict = torch.load(pathToTrainedModel)
