@@ -33,7 +33,7 @@ def load_dataset(dest = "/home/snakbot/SegmentationTask/VOCdevkit/VOC2012/JPEGIm
 
     train_dataset = torchvision.datasets.DatasetFolder(
         root=data_path,
-        loader="/home/snakbot/SegmentationTask/VOCdevkit/VOC2012/JPEGImages/2007_000027.jpg",
+        loader="/root/VOCdevkit/VOC2012/JPEGImages/2007_000027.jpg",
         extensions=ext,
         transform=torchvision.transforms.ToTensor()
     )
