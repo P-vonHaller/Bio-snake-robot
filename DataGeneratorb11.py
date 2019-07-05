@@ -61,7 +61,7 @@ model.cuda()
 
 trainloader = data.DataLoader(VOCDataSet(DATA_DIRECTORY, DATA_LIST_PATH, max_iters=10, crop_size=input_size, 
                     scale=False, mirror=False, mean=IMG_MEAN), 
-                    batch_size=6, shuffle=False, num_workers=0, pin_memory=True)
+                    batch_size=BATCH_SIZE, shuffle=False, num_workers=0, pin_memory=True)
 
 interp = nn.Upsample(size=input_size, mode='bilinear', align_corners=True)
 for i_iter, batch in enumerate(trainloader):
