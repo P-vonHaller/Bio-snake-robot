@@ -121,7 +121,7 @@ def main():
     data_list = []
 
     for index, batch in enumerate(testloader):
-        if index > 2:
+        if index > 0:
             break
         if index % 100 == 0:
             print('%d processd'%(index))
