@@ -191,6 +191,7 @@ def initializeFilters(image):
     filters.cuda()
     middle = math.floor(filterHeight/2)
     for imageY in range(imageHeight):
+        print(imageY)
         for imageX in range(imageWidth):
             for y in range(filterHeight):
                 for x in range(filterWidth):
