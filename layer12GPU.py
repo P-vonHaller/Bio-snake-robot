@@ -17,6 +17,8 @@ from itertools import repeat
 
 unfold = F.unfold
 
+SIZE = 321
+FILTERSIZE = 30
 
 # In[11]:
 
@@ -136,7 +138,7 @@ class Net(nn.Module):
         super(Net, self).__init__()
         
         #in_height, in_width, in_channels, out_channels, kernel_size, stride=1, padding=0, bias=True, dilation=1
-        self.conv1 = Conv2dLocal(10, 10, 21, 21, 5, 1, 1, 0, 1)
+        self.conv1 = Conv2dLocal(SIZE, SIZE, 21, 21, FILTERSIZE, 1, 1, 0, 1)
         
         #in-features, out-features
         self.linear = nn.Linear (8,504)
@@ -158,7 +160,7 @@ class Net(nn.Module):
 
 
 def loadImages():
-    test = (torch.randint(0, 10, (3, 10, 10))) # color, height, width
+    test = (torch.randint(0, 10, (3, SIZE, SIZE))) # color, height, width
     test.cuda()
     return test
     #print(test[1][0][0])
@@ -183,8 +185,8 @@ def calcDistance(color1, color2, color3, compColor1, compColor2, compColor3, ima
 def initializeFilters(image):
     imageHeight = len(image[0])
     imageWidth = len(image[0][0])
-    filterHeight = 5
-    filterWidth = 5
+    filterHeight = FILTERSIZE
+    filterWidth = FILTERSIZE
     filters = torch.zeros(imageHeight, imageWidth, filterHeight, filterWidth) #imageY, imageX, y, x
     filters.cuda()
     middle = math.floor(filterHeight/2)
@@ -214,7 +216,7 @@ filters = initializeFilters(loadImages())
 #print(filters)
 filters.unsqueeze_(-3)
 filters.unsqueeze_(-3)
-filters = filters.expand(10, 10, 21, 21, 5, 5)
+filters = filters.expand(SIZE, SIZE, 21, 21, FILTERSIZE, FILTERSIZE)
 #print(filters.size())
 #print(filters)
 
@@ -232,7 +234,7 @@ net.eval()
 # In[30]:
 
 
-input = torch.ones(3, 21, 10, 10)
+input = torch.ones(3, 21, SIZE, SIZE)
 #print(input[0][0][0][0])
 
 
