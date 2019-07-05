@@ -40,10 +40,11 @@ PATH = '/root/Bio-snake-robot/1.jpg'
 
 h, w = map(int, INPUT_SIZE.split(','))
 input_size = (h, w)
+mean=(128, 128, 128)
 
 image = cv2.imread(PATH, cv2.IMREAD_COLOR)
 image = np.asarray(image, np.float32)
-image -= self.mean
+image -= mean
         
 img_h, img_w, _ = image.shape
 pad_h = max(h - img_h, 0)
