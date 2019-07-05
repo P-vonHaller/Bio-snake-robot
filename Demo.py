@@ -53,7 +53,10 @@ if pad_h > 0 or pad_w > 0:
     image = cv2.copyMakeBorder(image, 0, pad_h, 0, pad_w, cv2.BORDER_CONSTANT, value=(0.0, 0.0, 0.0))
 image = image.transpose((2, 0, 1))
 image = torch.from_numpy(image)
-image.unsqueeze()
+print(image.size())
+
+image.unsqueeze(0)
+print(image.size())
 
 gpu0 = 0
 os.environ["CUDA_VISIBLE_DEVICES"]=str(gpu0)
@@ -65,8 +68,8 @@ model.load_state_dict(saved_state_dict)
 model.eval()
 model.cuda()
 
-image = Variable(images).cuda() #gets and saves a gpu output, for cpu see evaluate.py
-
+image = Variable(image).cuda() #gets and saves a gpu output, for cpu see evaluate.py
+print(image.size())
 interp = nn.Upsample(size=input_size, mode='bilinear', align_corners=True)
 
 pred = interp(model(image))
