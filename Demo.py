@@ -1,3 +1,4 @@
+import argparse
 import random
 import matplotlib.pyplot as plt
 import collections
@@ -33,11 +34,13 @@ import random
 import timeit
 start = timeit.default_timer()
 
-
-
+parser = argparse.ArgumentParser(description="DeepLabLFOV Network")
+parser.add_argument("picture", type=str, help="Name of the picture in the same directory without jpg ending")
+parser.add_argument("--aim-dir", type=str, default='',help="Path to the directory to save the result.")
+args = parser.parse_args()
 
 INPUT_SIZE = '321,321'
-PATH = '/root/Bio-snake-robot/1.jpg'
+PATH = args.picture + '.jpg'
 
 h, w = map(int, INPUT_SIZE.split(','))
 input_size = (h, w)
@@ -99,7 +102,7 @@ norm = colors.BoundaryNorm(bounds, cmap.N)
 ax.set_title('Prediction')
 ax.imshow(output, cmap=cmap, norm=norm)
 
-fig.savefig('/root/ForTesting/Hurray.png')
+fig.savefig(args.aim-dir + args.picture + '.png')
 
 
 
