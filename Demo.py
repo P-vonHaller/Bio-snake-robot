@@ -36,7 +36,7 @@ start = timeit.default_timer()
 
 parser = argparse.ArgumentParser(description="DeepLabLFOV Network")
 parser.add_argument("picture", type=str, help="Name of the picture in the same directory without jpg ending")
-parser.add_argument("--aim-dir", type=str, default='',help="Path to the directory to save the result.")
+parser.add_argument("--AimDir", type=str, default='',help="Path to the directory to save the result.")
 args = parser.parse_args()
 
 INPUT_SIZE = '321,321'
@@ -102,7 +102,7 @@ norm = colors.BoundaryNorm(bounds, cmap.N)
 ax.set_title('Prediction')
 ax.imshow(output, cmap=cmap, norm=norm)
 
-fig.savefig(args.aim-dir + args.picture + '.png')
+fig.savefig(args.AimDir + args.picture + '.png')
 
 
 
