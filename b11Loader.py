@@ -1,3 +1,5 @@
+import torch
+
 BATCHES = 5 #probably tops
 PATH = '/root/VOC12_After_Deeplab/TrainBatch3TensorsGPU'
 
