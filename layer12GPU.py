@@ -8,6 +8,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import math
+import os 
+import torch.backends.cudnn as cudnn
 from torch.nn.parameter import Parameter
 Module = nn.Module
 import collections
@@ -187,7 +189,6 @@ def initializeFilters(image):
     filters.cuda()
     middle = math.floor(filterHeight/2)
     for imageY in range(imageHeight):
-        print('IM doing something')
         for imageX in range(imageWidth):
             for y in range(filterHeight):
                 for x in range(filterWidth):
@@ -208,13 +209,13 @@ def initializeFilters(image):
 
 
 filters = initializeFilters(loadImages())
-print(filters.size())
+#print(filters.size())
 #print(filters.view(25, 3, 3).size())
-print(filters)
+#print(filters)
 filters.unsqueeze_(-3)
 filters.unsqueeze_(-3)
 filters = filters.expand(10, 10, 21, 21, 5, 5)
-print(filters.size())
+#print(filters.size())
 #print(filters)
 
 
@@ -223,18 +224,18 @@ print(filters.size())
 
 net = Net()
 params = list(net.conv1.parameters())
-print(params[0].size())  # conv1's .weight
-params = filters
-print(params)
-
+#print(params[0].size())  # conv1's .weight
+params = filters.cpu()
+#print(params)
+net.eval()
 
 # In[30]:
 
 
 input = torch.ones(3, 21, 10, 10)
 #print(input[0][0][0][0])
-net.eval()
-net.cuda()
+
+
 out = net(input)
 #print(input)
 print(out.size())
