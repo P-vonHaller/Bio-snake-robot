@@ -196,13 +196,13 @@ def initializeFilters(image):
             for y in range(filterHeight):
                 for x in range(filterWidth):
                     if not ((imageX + (x-middle)) < 0 or (imageX + x) > imageWidth or (imageY + (y-middle)) < 0 or (imageY + y) > imageHeight):
-                        filters[imageY][imageX][y][x] = calcDistance(image[0][imageY][imageX], 
-                                                                      image[1][imageY][imageX], 
-                                                                      image[2][imageY][imageX], 
-                                                                      image[0][imageY - middle + y][imageX - middle + x], 
-                                                                      image[1][imageY - middle + y][imageX - middle + x], 
-                                                                      image[2][imageY - middle + y][imageX - middle + x],
-                                                                      imageX, imageY, x, y, middle)
+                        filters[imageY][imageX][y][x] = 0#calcDistance(image[0][imageY][imageX], 
+                                                          #            image[1][imageY][imageX], 
+                                                           #           image[2][imageY][imageX], 
+                                                            #          image[0][imageY - middle + y][imageX - middle + x], 
+                                                             #         image[1][imageY - middle + y][imageX - middle + x], 
+                                                              #        image[2][imageY - middle + y][imageX - middle + x],
+                                                               #       imageX, imageY, x, y, middle)
                     else:
                         filters[imageY][imageX][y][x] = 0
     return filters
