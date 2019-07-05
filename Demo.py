@@ -102,7 +102,6 @@ norm = colors.BoundaryNorm(bounds, cmap.N)
 ax.set_title('Prediction')
 ax.imshow(output, cmap=cmap, norm=norm)
 s = '' + args.AimDir + args.picture + '.png'
-print(s)
 fig.savefig(s)
 
 

@@ -34,9 +34,10 @@ import random
 import timeit
 start = timeit.default_timer()
 
-parser = argparse.ArgumentParser(description="DeepLabLFOV Network")
-parser.add_argument("picture", type=str, help="Name of the picture in the same directory without jpg ending")
+parser = argparse.ArgumentParser(description="Demo")
+parser.add_argument("picture", type=str, help="Name of the picture in the same directory without jpg ending.")
 parser.add_argument("--AimDir", type=str, default='',help="Path to the directory to save the result.")
+parser.add_argument("--postProcessing", action="store_true",help="Whether to use Postprocessing.")
 args = parser.parse_args()
 
 PATH = args.picture + '.jpg'
@@ -71,32 +72,45 @@ image = Variable(image).cuda() #gets and saves a gpu output, for cpu see evaluat
 interp = nn.Upsample(size=inter_size, mode='bilinear', align_corners=True)
 
 pred = interp(model(image))
-output = pred.cpu().data[0].numpy()
+# Put the following layers here:
 
-output = output[:,:size[0],:size[1]]
-output = output.transpose(1,2,0)
-output = np.asarray(np.argmax(output, axis=2), dtype=np.int)
 
-fig, ax = plt.subplots()
+def saveImage(pred):
+    output = pred.cpu().data[0].numpy()
 
-classes = np.array(('background',  # always index 0
+    output = output[:,:size[0],:size[1]]
+    output = output.transpose(1,2,0)
+    output = np.asarray(np.argmax(output, axis=2), dtype=np.int)
+
+    fig, ax = plt.subplots()
+
+    classes = np.array(('background',  # always index 0
                'aeroplane', 'bicycle', 'bird', 'boat',
                'bottle', 'bus', 'car', 'cat', 'chair',
                          'cow', 'diningtable', 'dog', 'horse',
                          'motorbike', 'person', 'pottedplant',
                          'sheep', 'sofa', 'train', 'tvmonitor'))
-colormap = [(0,0,0),(0.5,0,0),(0,0.5,0),(0.5,0.5,0),(0,0,0.5),(0.5,0,0.5),(0,0.5,0.5), 
+    colormap = [(0,0,0),(0.5,0,0),(0,0.5,0),(0.5,0.5,0),(0,0,0.5),(0.5,0,0.5),(0,0.5,0.5), 
                     (0.5,0.5,0.5),(0.25,0,0),(0.75,0,0),(0.25,0.5,0),(0.75,0.5,0),(0.25,0,0.5), 
                     (0.75,0,0.5),(0.25,0.5,0.5),(0.75,0.5,0.5),(0,0.25,0),(0.5,0.25,0),(0,0.75,0), 
                     (0.5,0.75,0),(0,0.25,0.5)]
-cmap = colors.ListedColormap(colormap)
-bounds=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]
-norm = colors.BoundaryNorm(bounds, cmap.N)
+    cmap = colors.ListedColormap(colormap)
+    bounds=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]
+    norm = colors.BoundaryNorm(bounds, cmap.N)
 
-ax.set_title('Prediction')
-ax.imshow(output, cmap=cmap, norm=norm)
-s = '' + args.AimDir + args.picture + '.png'
-fig.savefig(s)
+    ax.set_title('Prediction')
+    ax.imshow(output, cmap=cmap, norm=norm)
+    s = '' + args.AimDir + args.picture + '.png'
+    fig.savefig(s)
+
+if args.postProcessing:
+    print('Sorry, not implemented yet!')
+else:
+    saveImage(pred)
+
+
+
+
 
 
 
