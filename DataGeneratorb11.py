@@ -68,21 +68,19 @@ for i_iter, batch in enumerate(trainloader):
     images, labels, _, _ = batch
     images = Variable(images).cuda() #gets and saves a gpu output, for cpu see evaluate.py
     
-    torch.save(images, '/root/VOC12_After_Deeplab/TrainBatch6Tensors/images'+ str(i_iter) + '.pth')
-    torch.save(labels, '/root/VOC12_After_Deeplab/TrainBatch6Tensors/labels'+ str(i_iter) + '.pth')
+    torch.save(images, '/root/VOC12_After_Deeplab/TrainBatch3TensorsGPU/images'+ str(i_iter) + '.pth')
+    torch.save(labels, '/root/VOC12_After_Deeplab/TrainBatch3TensorsGPU/labels'+ str(i_iter) + '.pth')
 
     pred = interp(model(images))
-    torch.save(pred, '/root/VOC12_After_Deeplab/TrainBatch6Tensors/predictions'+ str(i_iter) + '.pth')
-    if i_iter > 5:
-	    break
+    torch.save(pred, '/root/VOC12_After_Deeplab/TrainBatch3TensorsGPU/predictions'+ str(i_iter) + '.pth')
 
-i = 0
-t = torch.load('/root/VOC12_After_Deeplab/TrainBatch6Tensors/labels'+ str(i) + '.pth')
-print(t.size())
-t = torch.load('/root/VOC12_After_Deeplab/TrainBatch6Tensors/images'+ str(i) + '.pth')
-print(t.size())
-t = torch.load('/root/VOC12_After_Deeplab/TrainBatch6Tensors/predictions'+ str(i) + '.pth')
-print(t.size())
+#i = 0
+#t = torch.load('/root/VOC12_After_Deeplab/TrainBatch3TensorsGPU/labels'+ str(i) + '.pth')
+#print(t.size())
+#t = torch.load('/root/VOC12_After_Deeplab/TrainBatch3TensorsGPU/images'+ str(i) + '.pth')
+#print(t.size())
+#t = torch.load('/root/VOC12_After_Deeplab/TrainBatch3TensorsGPU/predictions'+ str(i) + '.pth')
+#print(t.size())
 
 
 
