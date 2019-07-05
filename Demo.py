@@ -4,7 +4,8 @@ import collections
 import torchvision
 from torch.utils import data
 
-
+from matplotlib import colors
+from mpl_toolkits.axes_grid1 import make_axes_locatable
 
 import argparse #don't need it, actually...
 
@@ -53,10 +54,8 @@ if pad_h > 0 or pad_w > 0:
     image = cv2.copyMakeBorder(image, 0, pad_h, 0, pad_w, cv2.BORDER_CONSTANT, value=(0.0, 0.0, 0.0))
 image = image.transpose((2, 0, 1))
 image = torch.from_numpy(image)
-print(image.size())
 
 image = image.unsqueeze(0)
-print(image.size())
 
 gpu0 = 0
 os.environ["CUDA_VISIBLE_DEVICES"]=str(gpu0)
@@ -69,16 +68,36 @@ model.eval()
 model.cuda()
 
 image = Variable(image).cuda() #gets and saves a gpu output, for cpu see evaluate.py
-print(image.size())
+
 interp = nn.Upsample(size=input_size, mode='bilinear', align_corners=True)
 
 pred = interp(model(image))
+output = pred.cpu().data[0].numpy()
 
+output = output[:,:size[0],:size[1]]
+output = output.transpose(1,2,0)
+output = np.asarray(np.argmax(output, axis=2), dtype=np.int)
 
+fig, ax = plt.subplots()
 
+classes = np.array(('background',  # always index 0
+               'aeroplane', 'bicycle', 'bird', 'boat',
+               'bottle', 'bus', 'car', 'cat', 'chair',
+                         'cow', 'diningtable', 'dog', 'horse',
+                         'motorbike', 'person', 'pottedplant',
+                         'sheep', 'sofa', 'train', 'tvmonitor'))
+colormap = [(0,0,0),(0.5,0,0),(0,0.5,0),(0.5,0.5,0),(0,0,0.5),(0.5,0,0.5),(0,0.5,0.5), 
+                    (0.5,0.5,0.5),(0.25,0,0),(0.75,0,0),(0.25,0.5,0),(0.75,0.5,0),(0.25,0,0.5), 
+                    (0.75,0,0.5),(0.25,0.5,0.5),(0.75,0.5,0.5),(0,0.25,0),(0.5,0.25,0),(0,0.75,0), 
+                    (0.5,0.75,0),(0,0.25,0.5)]
+cmap = colors.ListedColormap(colormap)
+bounds=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]
+norm = colors.BoundaryNorm(bounds, cmap.N)
 
+ax.set_title('Prediction')
+ax.imshow(pred, cmap=cmap, norm=norm)
 
-
+fig.savefig('/root/ForTesting/Hurray.png')
 
 
 
