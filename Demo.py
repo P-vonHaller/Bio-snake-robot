@@ -55,7 +55,7 @@ image = image.transpose((2, 0, 1))
 image = torch.from_numpy(image)
 print(image.size())
 
-image.unsqueeze(0)
+image = image.unsqueeze(0)
 print(image.size())
 
 gpu0 = 0
