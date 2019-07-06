@@ -23,7 +23,7 @@ start = timeit.default_timer()
 
 IMG_MEAN = np.array((104.00698793,116.66876762,122.67891434), dtype=np.float32)
 
-BATCH_SIZE = 10
+BATCH_SIZE = 6
 DATA_DIRECTORY = '/root/VOCdevkit/VOC2012/'
 DATA_LIST_PATH = './dataset/list/train_aug.txt'
 IGNORE_LABEL = 255
@@ -31,12 +31,12 @@ INPUT_SIZE = '321,321'
 LEARNING_RATE = 2.5e-4
 MOMENTUM = 0.9
 NUM_CLASSES = 21
-NUM_STEPS = 20000
+NUM_STEPS = 10000
 POWER = 0.9
 RANDOM_SEED = 1234
 RESTORE_FROM = '/root/Pytorch-Deeplab-Model/MS_DeepLab_resnet_pretrained_COCO_init.pth'
 SAVE_NUM_IMAGES = 2
-SAVE_PRED_EVERY = 500
+SAVE_PRED_EVERY = 2000
 SNAPSHOT_DIR = './snapshots/'
 WEIGHT_DECAY = 0.0005
 
@@ -215,9 +215,9 @@ def main():
         loss.backward()
         optimizer.step()
 
-        if i_iter % 100 == 0:
-            print('iter = ', i_iter, 'of', args.num_steps,'completed, loss = ', loss.data.cpu().numpy())
-            sys.stdout.flush()
+        
+        print('iter = ', i_iter, 'of', args.num_steps,'completed, loss = ', loss.data.cpu().numpy())
+        sys.stdout.flush()
 
         if i_iter >= args.num_steps-1:
             print('save model ...')
@@ -235,4 +235,22 @@ def main():
     sys.stdout.flush()
 
 if __name__ == '__main__':
+    args.random_mirror = True
+    args.random_scale = True
     main()
+    
+
+args.learning_rate #2x
+args.momentum # 2x
+args.power	# 2x
+args.weight_decay
+args.snapshot_dir
+
+
+
+
+
+
+
+
+
