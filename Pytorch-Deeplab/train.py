@@ -216,7 +216,8 @@ def main():
         optimizer.step()
 
         if i_iter % 100 == 0:
-            print('iter = ', i_iter, 'of', args.num_steps,'completed, loss = ', loss.data.cpu().numpy())
+            #print('iter = ', i_iter, 'of', args.num_steps,'completed, loss = ', loss.data.cpu().numpy())
+            print(str(i_iter) +',' + loss.data.cpu().numpy())
             sys.stdout.flush()
 
         if i_iter >= args.num_steps-1:
