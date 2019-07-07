@@ -123,7 +123,7 @@ def iou():
 
     for index, batch in enumerate(testloader):
         if index % 100 == 0:
-            print('%d processd'%(index))
+            #print('%d processd'%(index))
             sys.stdout.flush()
         image, label, size, name = batch
         size = size[0].numpy()
@@ -142,8 +142,7 @@ def iou():
 
     return get_iou(data_list, args.num_classes)
 
-file = open('20000StepsDefaultParametersBatch6Accuracy.txt', 'w')
-for steps in range(500,1001,500):
+for steps in range(500,20001,500):
     RESTORE_FROM = '/root/Bio-snake-robot/Pytorch-Deeplab/20000StepsDefaultParametersBatch6/VOC12_scenes_' + str(steps) + '.pth'
-    file.write('' + str(steps) + ';' +iou() + '\n')
-file.close()
+    print(str(steps) + ';' + iou())
+    sys.stdout.flush()
