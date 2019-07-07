@@ -64,7 +64,7 @@ def get_iou(data_list, class_num, save_path=None):
 
     aveJ, j_list, M = ConfM.jaccard()
     print('meanIOU: ' + str(aveJ) + '\n')
-	return str(aveJ)
+    return str(aveJ)
     if save_path:
         with open(save_path, 'w') as f:
             f.write('meanIOU: ' + str(aveJ) + '\n')
