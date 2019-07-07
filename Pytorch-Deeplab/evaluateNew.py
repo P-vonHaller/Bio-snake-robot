@@ -121,6 +121,9 @@ def iou():
     data_list = []
 
     for index, batch in enumerate(testloader):
+        if index % 100 == 0:
+            print('%d processd'%(index))
+            sys.stdout.flush()
         image, label, size, name = batch
         size = size[0].numpy()
         with torch.no_grad():
