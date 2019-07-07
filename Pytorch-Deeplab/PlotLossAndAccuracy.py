@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
-LOSS = '/root/Bio-snake-robot/Pytorch-Deeplab/...'
-ACC = '/root/Bio-snake-robot/Pytorch-Deeplab/...'
+LOSS = '/root/Bio-snake-robot/Pytorch-Deeplab/20000Default.log'
+ACC = '/root/Bio-snake-robot/Pytorch-Deeplab/20000DefaultAcc.log'
 
 #ACC = 'Atest.txt'
 #LOSS = 'LossTest.txt'
