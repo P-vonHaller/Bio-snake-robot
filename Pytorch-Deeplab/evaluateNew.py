@@ -121,12 +121,11 @@ def iou():
     data_list = []
 
     for index, batch in enumerate(testloader):
-        if index % 100 == 0:
-            print('%d processd'%(index))
         image, label, size, name = batch
         size = size[0].numpy()
-        output = model(Variable(image, volatile=True).cuda(gpu0))
-        output = interp(output).cpu().data[0].numpy()
+        with torch.no_grad():
+            output = model(Variable(image).cuda(gpu0))
+            output = interp(output).cpu().data[0].numpy()
 
         output = output[:,:size[0],:size[1]]
         gt = np.asarray(label[0].numpy()[:size[0],:size[1]], dtype=np.int)
@@ -140,7 +139,7 @@ def iou():
     return get_iou(data_list, args.num_classes)
 
 file = open('20000StepsDefaultParametersBatch6Accuracy.txt', 'w')
-for steps in range(500,1001,500):
+for steps in range(500,20001,500):
     RESTORE_FROM = '/root/Bio-snake-robot/Pytorch-Deeplab/20000StepsDefaultParametersBatch6/VOC12_scenes_' + str(steps) + '.pth'
     file.write(str(steps) + ';' +str(iou()) + ';\n')
 file.close()
