@@ -64,6 +64,7 @@ def get_iou(data_list, class_num, save_path=None):
 
     aveJ, j_list, M = ConfM.jaccard()
     print('meanIOU: ' + str(aveJ) + '\n')
+	return str(aveJ)
     if save_path:
         with open(save_path, 'w') as f:
             f.write('meanIOU: ' + str(aveJ) + '\n')
@@ -142,7 +143,7 @@ def iou():
     return get_iou(data_list, args.num_classes)
 
 file = open('20000StepsDefaultParametersBatch6Accuracy.txt', 'w')
-for steps in range(500,20001,500):
+for steps in range(500,1001,500):
     RESTORE_FROM = '/root/Bio-snake-robot/Pytorch-Deeplab/20000StepsDefaultParametersBatch6/VOC12_scenes_' + str(steps) + '.pth'
-    file.write(str(steps) + ';' +str(iou()) + ';\n')
+    file.write('' + str(steps) + ';' +iou() + '\n')
 file.close()
