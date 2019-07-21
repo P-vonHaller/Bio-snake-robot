@@ -16,7 +16,8 @@ import torchvision
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-import torch.cuda
+
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 dirpath = os.getcwd()
 parent = os.path.dirname(dirpath)
@@ -59,7 +60,7 @@ def main():
                 print(num.size())
                 print(type(den))
                 print(den.size())
-                den +=num
+                den = den.to(device) + num.to(device)
             #for k in range(21):
 
 
