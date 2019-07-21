@@ -2,8 +2,8 @@
 """
 This is layer15 of the DPN implementation for the Biosnake lab
 Author: Tim Peisker
-input: 21 feature maps of size 312x312 from layer 11 and 21 feature maps of size 312x312 from layer 14
-output: 21 feature maps of size 312x312
+input: 21 feature maps of size 321x321 from layer 11 and 21 feature maps of size 321x321 from layer 14
+output: 21 feature maps of size 321x321
 
 Brief description:
 This final layer combines the output of layer 11 and layer 14 with softmax activation
@@ -40,15 +40,15 @@ def main():
     counter = 0
     for i in range(3525):  # loop over all the batches
 
-        # both data sources are 3x21x312x312 (batch size x categories x downsampled image dimensions)
+        # both data sources are 3x21x321x321 (batch size x categories x downsampled image dimensions)
         b11 = torch.load(b11_location + "/predictions" + str(i) + ".pth")
         print(b11.size())
         b14 = torch.load(b14_location + "/predictions" + str(i) + ".pth")
         print(b14.size())
-        b15 = torch.zeros([3, 21, 312, 312])  # tensor to store output of this batch
+        b15 = torch.zeros([3, 21, 321, 321])  # tensor to store output of this batch
 
         for j in range(3):  # loop over the individual 3D tensors within a batch
-            den = torch.zeros([312, 312])  # variable to sum over the categories to get the denominator of Eqn. 15
+            den = torch.zeros([321, 321])  # variable to sum over the categories to get the denominator of Eqn. 15
             for k in range(21):  # loop over all the categories within one 3D tensor
                 fmap11 = b11[j, k]  # kth category in the jth feature map of this batch
                 fmap14 = b14[j, k]
