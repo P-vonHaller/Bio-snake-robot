@@ -51,7 +51,7 @@ def main():
                 fmap11 = b11[j, k]  # kth category in the jth feature map of this batch
                 fmap14 = b14[j, k]
 
-                diff = fmap11-fmap14  # compute ...
+                diff = torch.log(fmap11)-fmap14  # compute ...
                 print(diff.size())
 
         if counter == 1: break
