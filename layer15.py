@@ -39,7 +39,7 @@ def main():
 
     # Note: the output of an image after b11 is assumed to be saved with the same name as the output after b14 for that
     #  image within their respective folders.
-    counter = 0
+
     for i in range(3525):  # loop over all the batches
 
         # both data sources are 3x21x321x321 (batch size x categories x downsampled image dimensions)
@@ -62,9 +62,8 @@ def main():
                 b15[j,k] = b15[j,k].to(device)/den.to(device)  # divide every category's fmap by the denominator
 
         torch.save(b15, output_location + "/predictions" + str(i) + ".pth")
-        #if counter == 1: break
-        counter += 1
-        print counter
+        #if i == 1: break
+        print(i)
 
 
 
