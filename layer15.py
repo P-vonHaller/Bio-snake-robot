@@ -41,7 +41,7 @@ def main():
     counter = 0
     for i in range(0, 10574):
 
-        b11 = torch.load(b11_location + "/predictions" + str(i))
+        b11 = torch.load(b11_location + "/predictions" + str(i) + ".pth")
         print("b11 loader returned type: "+ type(b11))
         if counter == 10: break
         counter += 1
