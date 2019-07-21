@@ -16,6 +16,7 @@ import torchvision
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+import torch.cuda
 
 dirpath = os.getcwd()
 parent = os.path.dirname(dirpath)
@@ -33,7 +34,7 @@ def main():
     print("This is the parent directory: " + parent)
     print("This is the location of the b11 data: " + b11_location)
     print("This is the location of the b14 data: " + b14_location)
-    print("This is the location where my ouput will be stored: " + output_location)
+    print("This is the location where the b15 output will be stored: " + output_location)
 
     # Note: the output of an image after b11 is assumed to be saved with the same name as the output after b14 for that
     #  image within their respective folders.
