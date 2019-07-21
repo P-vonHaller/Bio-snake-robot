@@ -59,7 +59,7 @@ def main():
                 print(num.size())
                 print(type(den))
                 print(den.size())
-                den = fmap14+fmap11
+                den +=num
             #for k in range(21):
 
 
