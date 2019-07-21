@@ -39,11 +39,9 @@ def main():
     # the output of an image after b11 is assumed to be saved with the same name as the output after b14 for that image
     # within their respective folders.
     counter = 0
-    for b14_file in b14_location:
-        print("b14: " + b14_file)
-        b11_file = os.path.abspath(b14_file)
-        print("b11: " + b11_file)
-        b11 = torch.load(b11_file)
+    for i in range(0, 10574):
+
+        b11 = torch.load(b11_location + "/predictions" + str(i))
         print("b11 loader returned type: "+ type(b11))
         if counter == 10: break
         counter += 1
