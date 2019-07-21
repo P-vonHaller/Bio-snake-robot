@@ -54,7 +54,7 @@ def main():
                 fmap14 = b14[j, k]
 
                 num = torch.exp(torch.log(fmap11)-fmap14)  # compute the numerator of Eqn. 15
-                den += num
+                den = den + num
             #for k in range(21):
 
 
