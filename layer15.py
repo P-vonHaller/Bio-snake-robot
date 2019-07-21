@@ -53,7 +53,7 @@ def write_sample_data():
     print((sample))
     torch.save(sample, b11_location + "/sample0.pth")
     retreived = torch.load(b11_location + "/sample0.pth")
-    print retreived
+    print(retreived)
 
 
 def test():
