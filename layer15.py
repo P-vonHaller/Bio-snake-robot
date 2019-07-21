@@ -58,7 +58,7 @@ def main():
                 print(num.size())
                 print(type(den))
                 print(den.size())
-                den = den + num
+                den = torch.add(den, num)
             #for k in range(21):
 
 
