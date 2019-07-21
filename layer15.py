@@ -42,7 +42,7 @@ def main():
     for i in range(0, 10574):
 
         b11 = torch.load(b11_location + "/predictions" + str(i) + ".pth")
-        print(torch.size(b11))
+        print(b11.size())
         if counter == 1: break
         counter += 1
 
