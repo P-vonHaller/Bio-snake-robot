@@ -18,22 +18,23 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
+dirpath = os.getcwd()
+parent = os.path.dirname(dirpath)
+b11_location = parent + "/VOC12_After_Deeplab/TrainBatch3TensorsGPU"
+b14_location = parent + "/data"  # parent + "/VOC12_After_b14/TrainBatch3TensorsGPU"
+output_location = parent + "/VOC12_After_b15"
+
 
 
 def main():
 
     # get paths and display them to the console
-    dirpath = os.getcwd()
-    parent = os.path.dirname(dirpath)
-    b11_location = parent + "/VOC12_After_Deeplab/TrainBatch3TensorsGPU"
-    b14_location = parent + "/data"  # parent + "/VOC12_After_b14/TrainBatch3TensorsGPU"
-    output_location = parent + "/VOC12_After_b15"
+
     print("The current path is: " + dirpath)
     print("This is the parent directory: " + parent)
     print("This is the location of the b11 data: " + b11_location)
     print("This is the location of the b14 data: " + b14_location)
     print("This is the location where my ouput will be stored: " + output_location)
-
 
     # the output of an image after b11 is assumed to be saved with the same name as the output after b14 for that image
     # within their respective folders.
@@ -41,23 +42,19 @@ def main():
     for b14_file in b14_location:
         print("b14: " + b14_file)
         b11_file = os.path.abspath(b14_file)
-        print(type(b11_file))
-        b11 = load_b11(b11_location)
+        print("b11: " + b11_file)
+        b11 = torch.load(b11_file)
         print("b11 loader returned type: "+ type(b11))
         if counter == 10: break
-        counter +=1
+        counter += 1
 
-def load_b11(dest , ext = ".pth", bat_size = 2):
+def write_sample_data():
+    sample = torch.tensor([[1,2,3],[4,5,6]])
+    print((sample))
+    torch.save(sample, b11_location + "/sample0.pth")
+    retreived = torch.load(b11_location + "/sample0.pth")
+    print retreived
 
-    data_path = dest
-
-    train_dataset = torchvision.datasets.DatasetFolder(
-        root=data_path,
-        loader="/root/VOC12_After_Deeplab/TrainBatch3TensorsGPU/predictions999.pth",
-        extensions=ext,
-        transform=torchvision.transforms.ToTensor()
-    )
-    return train_dataset
 
 def test():
 
@@ -93,3 +90,4 @@ def test():
 
 if __name__ == "__main__":
     main()
+    #write_sample_data()
