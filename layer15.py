@@ -56,12 +56,10 @@ def main():
                 fmap14 = b14[j, k]
 
                 num = torch.exp(torch.log(fmap11)-fmap14)  # compute the numerator of Eqn. 15
-                print(type(num))
-                print(num.size())
-                print(type(den))
-                print(den.size())
-                den = den.to(device) + num.to(device)
-            #for k in range(21):
+                b15[j,k] = num  # store the numerator so that we can later divide by the denominator
+                den = den.to(device) + num.to(device)  # summing over all the categories to get den
+            for k in range(21):
+                b15[j,k] = b15[j,k]/den  # divide every category's fmap by the denominator of Eqn. 15
 
 
         #torch.save(b15, output_location + "/predictions" + str(i) + ".pth")
