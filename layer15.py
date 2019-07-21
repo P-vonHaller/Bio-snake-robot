@@ -39,12 +39,19 @@ def main():
     # the output of an image after b11 is assumed to be saved with the same name as the output after b14 for that image
     # within their respective folders.
     counter = 0
-    for i in range(0, 10574):
+    for i in range(3525):  # loop over all the batches
 
+        # both data sources are 3x21x312x312 (batch size x categories x downsampled image dimensions)
         b11 = torch.load(b11_location + "/predictions" + str(i) + ".pth")
         print(b11.size())
         b14 = torch.load(b14_location + "/predictions" + str(i) + ".pth")
         print(b14.size())
+
+        for j in range(3):  # loop over the individual 3D tensors within a batch
+            for k in range(21):  # loop over all the categories within one 3D tensor
+                fmap = b11[j,k]  # kth category in the jth feature map of this batch
+                print(fmap.size())
+
         if counter == 1: break
         counter += 1
 
