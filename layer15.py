@@ -2,13 +2,12 @@
 """
 This is layer15 of the DPN implementation for the Biosnake lab
 Author: Tim Peisker
-input: 21 feature maps of size 512x512 from layer 11 and 21 feature maps of size 512x512 from layer 14
-output: 21 feature maps of size 512x512
+input: 21 feature maps of size 312x312 from layer 11 and 21 feature maps of size 312x312 from layer 14
+output: 21 feature maps of size 312x312
 
 Brief description:
 This final layer combines the output of layer 11 and layer 14 with softmax activation
 Probability of assigning label u to pixel at r,c is normalized over all the labels
-A visualization of each pixel's final category is also supplied in the end
 
 """
 from __future__ import division
@@ -21,14 +20,14 @@ import os
 dirpath = os.getcwd()
 parent = os.path.dirname(dirpath)
 b11_location = parent + "/VOC12_After_Deeplab/TrainBatch3TensorsGPU"
-b14_location = parent + "/VOC12_After_b14/TrainBatch3TensorsGPU"  # parent + "/VOC12_After_b14/TrainBatch3TensorsGPU"
+b14_location = parent + "/VOC12_After_b14/TrainBatch3TensorsGPU"
 output_location = parent + "/VOC12_After_b15"
 
 
 
 def main():
 
-    # get paths and display them to the console
+    # display paths to the console
 
     print("The current path is: " + dirpath)
     print("This is the parent directory: " + parent)
@@ -36,8 +35,8 @@ def main():
     print("This is the location of the b14 data: " + b14_location)
     print("This is the location where my ouput will be stored: " + output_location)
 
-    # the output of an image after b11 is assumed to be saved with the same name as the output after b14 for that image
-    # within their respective folders.
+    # Note: the output of an image after b11 is assumed to be saved with the same name as the output after b14 for that
+    #  image within their respective folders.
     counter = 0
     for i in range(3525):  # loop over all the batches
 
@@ -49,18 +48,16 @@ def main():
 
         for j in range(3):  # loop over the individual 3D tensors within a batch
             for k in range(21):  # loop over all the categories within one 3D tensor
-                fmap = b11[j,k]  # kth category in the jth feature map of this batch
-                print(fmap.size())
+                fmap11 = b11[j, k]  # kth category in the jth feature map of this batch
+                fmap14 = b14[j, k]
+
+                diff = fmap11-fmap14  # compute ...
+                print(diff.size())
 
         if counter == 1: break
         counter += 1
 
-def write_sample_data():
-    sample = torch.tensor([[1,2,3],[4,5,6]])
-    print((sample))
-    torch.save(sample, b11_location + "/sample0.pth")
-    retreived = torch.load(b11_location + "/sample0.pth")
-    print(retreived)
+
 
 
 def test():
