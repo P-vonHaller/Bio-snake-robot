@@ -45,15 +45,20 @@ def main():
         print(b11.size())
         b14 = torch.load(b14_location + "/predictions" + str(i) + ".pth")
         print(b14.size())
+        b15 = torch.zeros([3, 21, 312, 312])  # tensor to store output of this batch
 
         for j in range(3):  # loop over the individual 3D tensors within a batch
+            den = torch.zeros([312, 312])  # variable to sum over the categories to get the denominator of Eqn. 15
             for k in range(21):  # loop over all the categories within one 3D tensor
                 fmap11 = b11[j, k]  # kth category in the jth feature map of this batch
                 fmap14 = b14[j, k]
 
                 num = torch.exp(torch.log(fmap11)-fmap14)  # compute the numerator of Eqn. 15
-                print(diff.size())
+                den += num
+            #for k in range(21):
 
+
+        #torch.save(b15, output_location + "/predictions" + str(i) + ".pth")
         if counter == 1: break
         counter += 1
 
