@@ -52,8 +52,8 @@ def main():
         for j in range(3):  # loop over the individual 3D tensors within a batch
             den = torch.zeros([321, 321])  # variable to sum over the categories to get the denominator of Eqn. 15
             for k in range(21):  # loop over all the categories within one 3D tensor
-                fmap11 = b11[j, k]  # kth category in the jth feature map of this batch
-                fmap14 = b14[j, k]
+                fmap11 = b11[j, k].to(device)  # kth category in the jth feature map of this batch
+                fmap14 = b14[j, k].to(device)
 
                 num = torch.exp(torch.log(fmap11)-fmap14)  # compute the numerator of Eqn. 15
                 b15[j,k] = num  # store the numerator so that we can later divide by the denominator
@@ -62,7 +62,7 @@ def main():
                 b15[j,k] = b15[j,k].to(device)/den.to(device)  # divide every category's fmap by the denominator
 
         torch.save(b15, output_location + "/predictions" + str(i) + ".pth")
-        if counter == 1: break
+        #if counter == 1: break
         counter += 1
 
 
