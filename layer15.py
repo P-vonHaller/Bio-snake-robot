@@ -21,7 +21,7 @@ import os
 dirpath = os.getcwd()
 parent = os.path.dirname(dirpath)
 b11_location = parent + "/VOC12_After_Deeplab/TrainBatch3TensorsGPU"
-b14_location = parent + "/data"  # parent + "/VOC12_After_b14/TrainBatch3TensorsGPU"
+b14_location = parent + "/VOC12_After_b14/TrainBatch3TensorsGPU"  # parent + "/VOC12_After_b14/TrainBatch3TensorsGPU"
 output_location = parent + "/VOC12_After_b15"
 
 
@@ -43,6 +43,8 @@ def main():
 
         b11 = torch.load(b11_location + "/predictions" + str(i) + ".pth")
         print(b11.size())
+        b14 = torch.load(b14_location + "/predictions" + str(i) + ".pth")
+        print(b14.size())
         if counter == 1: break
         counter += 1
 
