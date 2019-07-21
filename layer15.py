@@ -42,8 +42,8 @@ def main():
     for i in range(0, 10574):
 
         b11 = torch.load(b11_location + "/predictions" + str(i) + ".pth")
-        print(b11)
-        if counter == 10: break
+        print(type(b11))
+        if counter == 1: break
         counter += 1
 
 def write_sample_data():
