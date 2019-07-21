@@ -44,9 +44,9 @@ def main():
 
         # both data sources are 3x21x321x321 (batch size x categories x downsampled image dimensions)
         b11 = torch.load(b11_location + "/predictions" + str(i) + ".pth")
-        print(b11.size())
+        #print(b11.size())
         b14 = torch.load(b14_location + "/predictions" + str(i) + ".pth")
-        print(b14.size())
+        #print(b14.size())
         b15 = torch.zeros([3, 21, 321, 321])  # tensor to store output of this batch
 
         for j in range(3):  # loop over the individual 3D tensors within a batch
@@ -64,6 +64,7 @@ def main():
         torch.save(b15, output_location + "/predictions" + str(i) + ".pth")
         #if counter == 1: break
         counter += 1
+        print counter
 
 
 
