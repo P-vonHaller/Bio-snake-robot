@@ -39,11 +39,11 @@ def main():
     # within their respective folders.
     counter = 0
     for b14_file in b14_location:
-        print "b14: " + b14_file
+        print("b14: " + b14_file)
         b11_file = os.path.abspath(b14_file)
-        print type(b11_file)
+        print(type(b11_file))
         b11 = load_b11(b11_location)
-        print "b11 loader returned type: "+ type(b11)
+        print("b11 loader returned type: "+ type(b11))
         if counter == 10: break
         counter +=1
 
